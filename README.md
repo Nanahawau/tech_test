@@ -121,23 +121,6 @@ Frontend will be available at: http://localhost:4200
 
 ---
 
-## Project Structure
-```
-tech_test/
-├── backend/
-│   ├── main.py              # FastAPI application entry point
-│   ├── requirements.txt     # Python dependencies
-│   ├── sample_data.csv      # Initial data
-│   ├── controllers/         # API route handlers
-│   ├── services/            # Business logic
-│   ├── common/              # Shared utilities
-│   └── Dockerfile           # Backend Docker config
-├── frontend/
-│   ├── src/                 # Angular source code
-│   ├── package.json         # Node dependencies
-│   ├── angular.json         # Angular configuration
-│   ├── nginx.conf           # Nginx configuration
-│   └── Dockerfile           # Frontend Docker config
-├── docker-compose.yml       # Multi-container orchestration
-└── README.md                # This file
-```
+## Demo Credentials 
+- email: test@gmail.com
+- password: test
