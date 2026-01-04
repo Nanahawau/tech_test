@@ -1,0 +1,13 @@
+/* Material sidenav requires specific styling */
+:host {
+  display: block;
+  height: 100vh;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.05);
+}

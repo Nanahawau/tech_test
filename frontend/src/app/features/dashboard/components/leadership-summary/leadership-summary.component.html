@@ -1,0 +1,37 @@
+<div class="space-y-6">
+  <!-- Row 1: Account Metrics -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <app-stat-card
+      *ngFor="let stat of stats.slice(0, 3)"
+      [label]="stat.label"
+      [value]="stat.value"
+      [subtitle]="stat.subtitle"
+      [icon]="stat.icon"
+      [iconColor]="stat.iconColor"
+    />
+  </div>
+
+  <!-- Row 2: Activity Metrics -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <app-stat-card
+      *ngFor="let stat of stats.slice(3, 6)"
+      [label]="stat.label"
+      [value]="stat.value"
+      [subtitle]="stat.subtitle"
+      [icon]="stat.icon"
+      [iconColor]="stat.iconColor"
+    />
+  </div>
+
+  <!-- Row 3: Workflow & Efficiency -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <app-stat-card
+      *ngFor="let stat of stats.slice(6, 9)"
+      [label]="stat.label"
+      [value]="stat.value"
+      [subtitle]="stat.subtitle"
+      [icon]="stat.icon"
+      [iconColor]="stat.iconColor"
+    />
+  </div>
+</div>

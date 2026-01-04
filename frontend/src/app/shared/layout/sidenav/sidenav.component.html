@@ -1,0 +1,20 @@
+<nav class="h-full flex flex-col bg-white">
+  <!-- Navigation List -->
+  <mat-nav-list class="flex-1 pt-2">
+    <a
+      *ngFor="let item of navItems"
+      mat-list-item
+      [routerLink]="item.route"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      class="mb-1 transition-colors duration-200 hover:bg-gray-50"
+    >
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle class="font-medium">{{ item.label }}</span>
+    </a>
+  </mat-nav-list>
+
+  <!-- Footer -->
+  <div class="p-4 border-t border-gray-200 text-center">
+    <p class="text-xs text-gray-500">Version 1.0.0</p>
+  </div>
+</nav>

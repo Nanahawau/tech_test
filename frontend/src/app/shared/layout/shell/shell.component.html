@@ -1,0 +1,27 @@
+<div class="h-screen flex flex-col">
+  <!-- Toolbar -->
+  <app-toolbar 
+    (menuToggle)="drawer.toggle()"
+    class="flex-none"
+  ></app-toolbar>
+  
+  <!-- Main Content Area -->
+  <mat-sidenav-container class="flex-1">
+    <!-- Side Navigation -->
+    <mat-sidenav
+      #drawer
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)"
+      class="w-64 border-r border-gray-200"
+    >
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content class="bg-gray-50">
+      <main class="p-4 md:p-6 lg:p-8">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

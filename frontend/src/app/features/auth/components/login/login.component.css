@@ -1,0 +1,59 @@
+/* Form field styling */
+::ng-deep .custom-field .mat-mdc-text-field-wrapper {
+  background-color: #F9FAFB;
+  border-radius: 8px;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-focus-overlay {
+  background-color: transparent;
+}
+
+::ng-deep .custom-field .mdc-notched-outline__leading,
+::ng-deep .custom-field .mdc-notched-outline__notch,
+::ng-deep .custom-field .mdc-notched-outline__trailing {
+  border-color: #E5E7EB;
+}
+
+::ng-deep .custom-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .custom-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .custom-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #6366F1;
+  border-width: 2px;
+}
+
+::ng-deep .custom-field:hover:not(.mat-focused) .mdc-notched-outline__leading,
+::ng-deep .custom-field:hover:not(.mat-focused) .mdc-notched-outline__notch,
+::ng-deep .custom-field:hover:not(.mat-focused) .mdc-notched-outline__trailing {
+  border-color: #9CA3AF;
+}
+
+/* Button gradient */
+::ng-deep button.mat-mdc-raised-button.mat-primary:not([disabled]) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+::ng-deep button.mat-mdc-raised-button.mat-primary:not([disabled]):hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%) !important;
+}
+
+/* Disabled button style */
+::ng-deep button.mat-mdc-raised-button[disabled] {
+  background: #E5E7EB !important;
+  color: #9CA3AF !important;
+}
+
+/* Spinner color */
+::ng-deep mat-spinner circle {
+  stroke: white;
+}
+
+/* Smooth animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}

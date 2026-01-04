@@ -1,0 +1,36 @@
+/* Table styling */
+::ng-deep .mat-mdc-table {
+  background: transparent;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #111827;
+}
+
+::ng-deep .mat-mdc-row:hover {
+  background-color: #f9fafb;
+}
+
+/* Chip styling */
+::ng-deep .mat-mdc-chip {
+  height: 24px !important;
+  font-size: 11px !important;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+mat-card {
+  animation: fadeIn 0.3s ease-out;
+}

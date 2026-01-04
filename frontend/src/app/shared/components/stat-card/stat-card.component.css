@@ -1,0 +1,4 @@
+/* Smooth hover transition */
+mat-card {
+  transition: box-shadow 0.3s ease;
+}

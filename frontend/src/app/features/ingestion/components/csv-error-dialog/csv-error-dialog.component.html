@@ -1,0 +1,91 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="flex items-start justify-between mb-6">
+    <div class="flex items-start gap-3">
+      <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+        <mat-icon class="text-red-600">error</mat-icon>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">CSV Validation Error</h2>
+        <p class="text-sm text-gray-600 mt-1">{{ data.message }}</p>
+      </div>
+    </div>
+    <button mat-icon-button (click)="close()" class="text-gray-400 hover:text-gray-600">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Error Details -->
+  <div class="space-y-6">
+    <!-- Missing Headers -->
+    <div *ngIf="data.missing && data.missing.length > 0" class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+      <div class="flex items-start gap-3">
+        <mat-icon class="text-red-600 text-xl flex-shrink-0">remove_circle</mat-icon>
+        <div class="flex-1">
+          <h3 class="font-semibold text-red-900 mb-2">Missing Headers ({{ data.missing.length }})</h3>
+          <p class="text-sm text-red-800 mb-3">Your CSV is missing the following required headers:</p>
+          <div class="space-y-1">
+            <div *ngFor="let header of data.missing" 
+                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-red-200">
+              <mat-icon class="text-xs text-red-600">close</mat-icon>
+              <span class="text-red-900">{{ header }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Headers -->
+    <div *ngIf="data.extra && data.extra.length > 0" class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+      <div class="flex items-start gap-3">
+        <mat-icon class="text-amber-600 text-xl flex-shrink-0">add_circle</mat-icon>
+        <div class="flex-1">
+          <h3 class="font-semibold text-amber-900 mb-2">Extra Headers ({{ data.extra.length }})</h3>
+          <p class="text-sm text-amber-800 mb-3">Your CSV contains unexpected headers:</p>
+          <div class="space-y-1">
+            <div *ngFor="let header of data.extra" 
+                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-amber-200">
+              <mat-icon class="text-xs text-amber-600">add</mat-icon>
+              <span class="text-amber-900">{{ header }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expected Headers -->
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+      <div class="flex items-start gap-3">
+        <mat-icon class="text-blue-600 text-xl flex-shrink-0">checklist</mat-icon>
+        <div class="flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold text-blue-900">Expected Headers ({{ data.expected.length }})</h3>
+            <button 
+              mat-stroked-button 
+              (click)="copyToClipboard(data.expected.join(','))"
+              class="text-xs h-7"
+            >
+              <mat-icon class="text-sm mr-1">content_copy</mat-icon>
+              Copy All
+            </button>
+          </div>
+          <p class="text-sm text-blue-800 mb-3">Your CSV file must include these headers in this order:</p>
+          <div class="space-y-1 max-h-64 overflow-y-auto">
+            <div *ngFor="let header of data.expected; let i = index" 
+                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-blue-200">
+              <span class="text-xs text-blue-600 font-bold min-w-[2rem]">{{ i + 1 }}.</span>
+              <span class="text-blue-900">{{ header }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="mt-6 flex justify-end gap-3">
+    <button mat-raised-button color="primary" (click)="close()">
+      Got It
+    </button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="flex items-center gap-4">
+  <span class="text-sm font-medium text-gray-700">View as:</span>
+  <mat-button-toggle-group 
+    [value]="selectedAudience" 
+    (change)="onAudienceChange($event.value)"
+    class="custom-toggle-group"
+  >
+    <mat-button-toggle value="leadership" class="custom-toggle">
+      <span class="flex items-center gap-2">
+        <mat-icon>business_center</mat-icon>
+        Leadership
+      </span>
+    </mat-button-toggle>
+    <mat-button-toggle value="account_manager" class="custom-toggle">
+      <span class="flex items-center gap-2">
+        <mat-icon>manage_accounts</mat-icon>
+        Account Manager
+      </span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

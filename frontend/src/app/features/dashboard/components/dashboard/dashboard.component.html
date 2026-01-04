@@ -1,0 +1,46 @@
+<div class="min-h-screen bg-gray-50" *ngIf="state$ | async as state">
+  <!-- Page Header -->
+  <div class="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p class="text-sm sm:text-base text-gray-600 mt-1">Overview of your insights and analytics</p>
+      </div>
+      
+      <!-- Audience Selector -->
+      <app-audience-selector
+        [selectedAudience]="selectedAudience"
+        (audienceChange)="onAudienceChange($event)"
+      />
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Loading State -->
+    <app-loading-spinner 
+      *ngIf="state.isLoading" 
+      [diameter]="60"
+      message="Loading dashboard data..."
+    />
+
+    <!-- Error State -->
+    <app-error-panel
+      *ngIf="state.error && !state.isLoading"
+      [message]="state.error"
+      (retry)="loadSummary()"
+    />
+
+    <!-- Leadership Summary -->
+    <app-leadership-summary
+      *ngIf="!state.isLoading && !state.error && getLeadershipSummary(state) as leadershipSummary"
+      [summary]="leadershipSummary"
+    />
+
+    <!-- Account Manager Summary -->
+    <app-account-manager-summary
+      *ngIf="!state.isLoading && !state.error && getAccountManagerSummary(state) as accountManagerSummary"
+      [summary]="accountManagerSummary"
+    />
+  </div>
+</div>

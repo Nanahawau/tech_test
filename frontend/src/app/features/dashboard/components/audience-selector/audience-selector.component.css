@@ -1,0 +1,29 @@
+::ng-deep .custom-toggle-group {
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+::ng-deep .custom-toggle {
+  border: none !important;
+  padding: 0.5rem 1rem;
+}
+
+::ng-deep .custom-toggle .mat-button-toggle-label-content {
+  padding: 0;
+  line-height: 1.5;
+}
+
+::ng-deep .mat-button-toggle-checked {
+  background-color: #4F46E5 !important;
+  color: white !important;
+}
+
+::ng-deep .mat-button-toggle-checked mat-icon {
+  color: white !important;
+}
+
+::ng-deep .custom-toggle:hover:not(.mat-button-toggle-checked) {
+  background-color: #F3F4F6;
+}

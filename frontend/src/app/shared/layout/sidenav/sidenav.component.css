@@ -1,0 +1,4 @@
+/* Smooth transition for active state */
+a[routerLinkActive] {
+  transition: all 0.2s ease;
+}

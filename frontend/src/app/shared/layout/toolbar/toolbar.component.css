@@ -1,0 +1,27 @@
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Custom menu styling */
+::ng-deep .mat-mdc-menu-panel {
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Search input styling */
+input[type="text"] {
+  font-size: 14px;
+  background-color: #F9FAFB;
+}
+
+input[type="text"]:focus {
+  background-color: white;
+}
+
+/* Badge customization */
+::ng-deep .mat-badge-content {
+  font-size: 10px;
+  font-weight: 600;
+}

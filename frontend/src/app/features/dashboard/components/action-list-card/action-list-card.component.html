@@ -1,0 +1,87 @@
+<mat-card class="action-card">
+  <!-- Header -->
+  <div 
+    class="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors border-b border-gray-200"
+    (click)="toggleExpanded()"
+  >
+    <div class="flex items-center gap-3">
+      <div class="flex-shrink-0">
+        <div [ngClass]="hasItems ? 'bg-orange-100' : 'bg-green-100'" 
+             class="w-10 h-10 rounded-lg flex items-center justify-center">
+          <mat-icon [ngClass]="hasItems ? iconColor : 'text-green-600'">
+            {{ hasItems ? iconName : 'check_circle' }}
+          </mat-icon>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold text-gray-900">
+          {{ title }}
+          <span class="ml-2 text-sm font-normal" 
+                [ngClass]="hasItems ? 'text-orange-600' : 'text-green-600'">
+            ({{ itemCount }})
+          </span>
+        </h3>
+      </div>
+    </div>
+    <mat-icon class="text-gray-400 transition-transform" 
+              [class.rotate-180]="isExpanded">
+      expand_more
+    </mat-icon>
+  </div>
+
+  <!-- Content (Expandable) -->
+  <div *ngIf="isExpanded" class="p-4 space-y-4">
+    <!-- Empty State -->
+    <div *ngIf="!hasItems" class="text-center py-8">
+      <mat-icon class="text-green-600 text-5xl mb-2">check_circle</mat-icon>
+      <p class="text-gray-600 font-medium">No accounts found</p>
+      <p class="text-sm text-gray-500">All accounts in this category are healthy!</p>
+    </div>
+
+    <!-- Has Items -->
+    <div *ngIf="hasItems && actionList" class="space-y-4">
+      <!-- Reason -->
+      <div class="bg-orange-50 border-l-4 border-orange-500 p-3 rounded">
+        <p class="text-sm font-medium text-orange-900">Why flagged:</p>
+        <p class="text-sm text-orange-800 mt-1">{{ actionList.reason }}</p>
+      </div>
+
+      <!-- Recommended Actions -->
+      <div>
+        <p class="text-sm font-semibold text-gray-900 mb-2">Recommended Actions:</p>
+        <ul class="space-y-1">
+          <li *ngFor="let action of actionList.recommended_actions" 
+              class="text-sm text-gray-700 flex items-start gap-2">
+            <mat-icon class="text-indigo-600 text-base mt-0.5">arrow_right</mat-icon>
+            <span>{{ action }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Accounts List -->
+      <div>
+        <p class="text-sm font-semibold text-gray-900 mb-2">
+          Accounts ({{ itemCount }}):
+        </p>
+        <div class="space-y-2">
+          <div *ngFor="let item of actionList.items" 
+               class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            <div>
+              <p class="font-medium text-gray-900">{{ item.account_label }}</p>
+              <p class="text-xs text-gray-500 font-mono">{{ item.account_uuid }}</p>
+            </div>
+            <button 
+              mat-stroked-button 
+              color="primary"
+              (click)="viewAccount(item.account_uuid)"
+              class="ml-4"
+            >
+              <mat-icon class="mr-1">visibility</mat-icon>
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

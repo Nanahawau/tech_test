@@ -1,0 +1,19 @@
+<div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+  <div class="flex items-start gap-3">
+    <mat-icon class="text-red-500 mt-0.5">error</mat-icon>
+    <div class="flex-1 space-y-3">
+      <h3 class="text-lg font-medium text-red-800">{{ title }}</h3>
+      <p class="text-red-700 text-sm">{{ message }}</p>
+      <button 
+        *ngIf="showRetry"
+        mat-raised-button 
+        color="primary" 
+        (click)="retry.emit()"
+        class="flex items-center gap-2"
+      >
+        <mat-icon>refresh</mat-icon>
+        <span>Retry</span>
+      </button>
+    </div>
+  </div>
+</div>
