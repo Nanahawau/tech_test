@@ -1,243 +1,156 @@
-# CSV Analytics Dashboard (Customer Insights)
+# Tech Test Application - Setup Guide
 
-Lightweight **Customer Insights** dashboard for internal stakeholders (account managers and senior leadership).  
-The app reads a **CSV dataset** (no database), **validates + normalises** it into a predictable schema, exposes **analytics via an API**, and presents **insights in a simple UI**.
-
-> Focus: structure, clarity, correctness (not pixel-perfect styling).
+A full-stack application with FastAPI backend and Angular frontend.
 
 ---
 
-## What this project does
+##  Table of Contents
 
-### Backend (API)
-- Loads CSV data from a file in the repository (optionally on startup and/or via an endpoint).
-- Validates records against a defined schema.
-  - Missing/invalid fields are handled gracefully.
-  - “Invalid” rules are documented (see **Data validation rules**).
-  - Errors are returned with clear messages.
-- Normalises data into **typed models** (e.g., Pydantic) to keep the code predictable.
-- Provides endpoints for:
-  - **Summary** metrics for leadership
-  - **Records** with pagination + filtering
-  - **Analytics** endpoints for charts (group-bys, time series, breakdowns)
-- Includes OpenAPI docs (FastAPI `/docs`), kept tidy and consistent.
-
-### Frontend (Dashboard UI)
-- Fetches data from the API and handles:
-  - loading states
-  - empty states
-  - error states
-- Displays:
-  - at least **one chart** (bar/line/pie)
-  - at least **one table/list** of records
-  - at least **one filter/interaction** (search, date range, category, drill-down, etc.)
-- Uses clear labels, units, and definitions so non-technical users can interpret results.
+- [Prerequisites](#prerequisites)
+- [Running with Docker (Recommended)](#running-with-docker-recommended)
+- [Running Locally (Without Docker)](#running-locally-without-docker)
+- [Accessing the Application](#accessing-the-application)
+- [Common Commands](#common-commands)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
-## Tech stack
+## 🔧 Prerequisites
 
-- **Backend:** FastAPI (Python), Pydantic models, CORS enabled for Angular dev server
-- **Frontend:** Angular
-- **Storage:** none (in-memory; CSV file in repo)
+### For Docker Setup
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 
-If the stack is changed, the reasoning should be documented in **Design decisions**.
-
----
-
-## Dataset
-
-- CSV is stored in the repository (path configurable).
-- The backend ingests the CSV and produces:
-  - a normalised, typed representation for downstream logic
-  - derived metrics for dashboards and charts
-
-### Data validation rules (document your choices)
-Define and document what “invalid” means. Example rules (adjust to match the actual dataset):
-- **Required fields**: must be present and non-empty
-- **Types**:
-  - numeric fields must parse (e.g., revenue, quantity)
-  - dates must parse (ISO `YYYY-MM-DD` recommended)
-- **Ranges**:
-  - amounts must be ≥ 0
-  - dates must be valid calendar dates
-- **Categoricals**:
-  - known enums/categories (or allow free text but normalise casing/whitespace)
-- **Duplicates**:
-  - decide how to treat repeated IDs/rows (keep, merge, dedupe)
-
-**Graceful handling** recommendations:
-- Skip invalid rows and return counts + reasons in ingestion response, **or**
-- Accept partial records with `null` for optional fields and flag as `invalid`, **or**
-- Reject ingestion if error rate exceeds a threshold
-
-Whichever approach you choose, keep it consistent and documented.
+### For Local Setup
+- **Backend:**
+  - Python 3.11+
+  - pip (Python package manager)
+- **Frontend:**
+  - Node.js 20+ (LTS)
+  - npm 9+
 
 ---
 
-## API (suggested contract)
+## 🐳 Running with Docker (Recommended)
 
-> Endpoint names and shapes should be consistent and documented in OpenAPI.
+Docker containerizes both the backend and frontend, making setup quick and consistent across different environments.
 
-### Health
-- `GET /health` → `{ status: "ok" }`
+### **Step 1: Start Docker Desktop**
 
-### Summary (leadership metrics)
-- `GET /api/summary`
-  - Example fields:
-    - total records
-    - date range covered
-    - totals (e.g., total revenue)
-    - averages (e.g., avg order value)
-    - top categories/customers
+Make sure Docker Desktop is running (check for the Docker icon in your menu bar/system tray).
 
-### Records (table view)
-- `GET /api/records`
-  - Query params (example):
-    - `page`, `page_size`
-    - `search` (free text)
-    - `from`, `to` (date range)
-    - `category`, `status`, etc.
-  - Returns:
-    - `items: [...]`
-    - `page`, `page_size`
-    - `total`
+### **Step 2: Clone the Repository**
+```bash
+git clone <https://github.com/Nanahawau/tech_test>
+cd tech_test
+```
 
-### Analytics (charts)
-Provide one or more endpoints such as:
-- `GET /api/analytics/by-category`
-- `GET /api/analytics/time-series`
-- `GET /api/analytics/breakdown`
+### **Step 3: Build and Start the Application**
+```bash
+# Build and start all services
+docker compose up --build
+```
 
-Each should return a chart-friendly shape like:
-- `{ labels: [...], series: [...] }` or
-- `[{ key: "...", value: 123 }, ...]`
+**First-time build takes 2-5 minutes.** Subsequent starts are much faster.
 
-### CSV ingestion (optional)
-If supported:
-- `POST /api/ingest` (multipart upload) or `POST /api/reload` (reload file from repo)
+### **Step 4: Access the Application**
 
-Return:
-- number of rows processed
-- number accepted/skipped
-- validation errors (summarised)
+Once you see these logs:
+```
+tech_test_backend   | INFO: Application startup complete.
+tech_test_frontend  | /docker-entrypoint.sh: Configuration complete
+```
+
+Open your browser:
+- **Frontend:** http://localhost
+- **Backend API:** http://localhost:8000
+- **API Docs:** http://localhost:8000/docs
+
+### **Step 5: Stop the Application**
+```bash
+# Press Ctrl+C in the terminal, then:
+docker compose down
+```
 
 ---
 
-## Frontend UX expectations
+## Running Locally (Without Docker)
 
-- Use plain language (“Revenue”, “Customers”, “Orders”), not raw column names.
-- Provide definitions (tooltips/help text) for calculated metrics.
-- Ensure chart axes/units are labeled.
-- Avoid dumping raw CSV without context; show:
-  - what the viewer is looking at
-  - what filters apply
-  - what action they might take (e.g., “These accounts have declining activity over 30 days”)
+Run the backend and frontend separately on your machine.
 
----
+### **Backend Setup**
+```bash
+# Navigate to backend folder
+cd backend
 
-## Getting started (local development)
+# Create virtual environment
+python3 -m venv venv
 
-### Prerequisites
-- Python 3.11+ (recommended)
-- Node.js 18+ and npm
-- Angular CLI (if not bundled)
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
 
-### Backend (FastAPI)
-From the backend folder (adjust if your structure differs):
+# Install dependencies
+pip install -r requirements.txt
 
-1. Create and activate a virtual environment:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
+# Run the server
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Backend will be available at: http://localhost:8000
 
-3. Run the API:
-   ```bash
-   uvicorn app.main:app --reload --port 8000
-   ```
-
-- API: `http://localhost:8000/`
-- OpenAPI docs: `http://localhost:8000/docs`
-- Health: `http://localhost:8000/health`
-
-### Frontend (Angular)
-From the frontend folder:
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Run the dev server:
-   ```bash
-   npm start
-   ```
-
-- UI: `http://localhost:4200/`
-
-> CORS is enabled on the backend for the Angular dev server.
+**Keep this terminal open.**
 
 ---
 
-## Testing
+### **Frontend Setup**
 
-Add/keep tests for:
-- CSV parsing + validation
-- schema normalisation
-- analytics calculations (grouping, time series)
-- API response shapes
+Open a **new terminal window/tab**:
+```bash
+# Navigate to frontend folder
+cd frontend
 
-Typical commands (adjust to your tooling):
-- Backend:
-  ```bash
-  pytest
-  ```
-- Frontend:
-  ```bash
-  npm test
-  ```
+# Install dependencies (first time only)
+npm install
+
+# Start development server
+npm run start
+```
+
+Frontend will be available at: http://localhost:4200
+
+**Keep this terminal open too.**
 
 ---
 
-## Project structure (example)
+## Accessing the Application
 
+| Component | Docker URL | Local URL |
+|-----------|-----------|-----------|
+| **Frontend** | http://localhost | http://localhost:4200 |
+| **Backend API** | http://localhost:8000 | http://localhost:8000 |
+| **API Documentation** | http://localhost:8000/docs | http://localhost:8000/docs |
+
+---
+
+## Project Structure
 ```
 tech_test/
-  backend/
-    app/
-      main.py
-      models/
-      services/
-      api/
-    tests/
-    requirements.txt
-  frontend/
-    src/
-      app/
-  data/
-    input.csv
+├── backend/
+│   ├── main.py              # FastAPI application entry point
+│   ├── requirements.txt     # Python dependencies
+│   ├── sample_data.csv      # Initial data
+│   ├── controllers/         # API route handlers
+│   ├── services/            # Business logic
+│   ├── common/              # Shared utilities
+│   └── Dockerfile           # Backend Docker config
+├── frontend/
+│   ├── src/                 # Angular source code
+│   ├── package.json         # Node dependencies
+│   ├── angular.json         # Angular configuration
+│   ├── nginx.conf           # Nginx configuration
+│   └── Dockerfile           # Frontend Docker config
+├── docker-compose.yml       # Multi-container orchestration
+└── README.md                # This file
 ```
-
----
-
-## Design decisions (fill in)
-Document decisions that affect correctness/UX:
-- When ingestion happens (startup vs upload vs both)
-- Validation strategy (reject vs skip vs mark invalid)
-- Normalisation choices (type coercions, trimming strings, date parsing)
-- Analytics definitions (e.g., what counts as an “active customer”)
-
----
-
-## Troubleshooting
-
-- **CORS errors:** confirm backend allows `http://localhost:4200`
-- **CSV parse failures:** confirm delimiter/quote rules match the dataset
-- **Empty dashboard:** ensure CSV file path is correct and ingestion ran successfully
-- **Slow endpoints:** cache derived analytics in-memory if recomputing frequently
