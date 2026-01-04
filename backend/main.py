@@ -16,7 +16,7 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 
-STARTER_CSV = Path(__file__).resolve().parents[1] / "sample_data.csv"
+STARTER_CSV = Path(__file__).resolve().parent / "sample_data.csv"
 
 
 @asynccontextmanager
