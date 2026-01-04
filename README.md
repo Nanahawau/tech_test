@@ -1,18 +1,6 @@
 # Tech Test Application - Setup Guide
 
 A full-stack application with FastAPI backend and Angular frontend.
-
----
-
-##  Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Running with Docker (Recommended)](#running-with-docker-recommended)
-- [Running Locally (Without Docker)](#running-locally-without-docker)
-- [Accessing the Application](#accessing-the-application)
-- [Common Commands](#common-commands)
-- [Troubleshooting](#troubleshooting)
-
 ---
 
 ## 🔧 Prerequisites
