@@ -1,10 +1,9 @@
 # Tech Test Application - Setup Guide
 
 A full-stack application with FastAPI backend and Angular frontend.
----
 
-## 🔧 Prerequisites
 
+## Prerequisites
 ### For Docker Setup
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 
@@ -18,7 +17,7 @@ A full-stack application with FastAPI backend and Angular frontend.
 
 ---
 
-## 🐳 Running with Docker (Recommended)
+## Running with Docker (Recommended)
 
 Docker containerizes both the backend and frontend, making setup quick and consistent across different environments.
 
