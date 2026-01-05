@@ -4,19 +4,19 @@ A full-stack application with FastAPI backend and Angular frontend. The app is a
 ### **Core Functionality**
 
 **Dashboard & Analytics**
-The main dashboard provides at-a-glance metrics tailored to user roles (Leadership and Account Manager views). Users can toggle between audience types to view relevant statistics including total accounts, active subscriptions, inactive accounts, and workflow distributions. The analytics module features interactive visualizations: pie charts showing subscription status breakdowns (active vs. inactive), bar charts comparing notifications sent versus billed, horizontal bar charts highlighting top-performing workflows, and detailed usage statistics segmented by account status. Key metrics include total accounts, messages processed, notifications sent/billed, and record counts across all client accounts.
+The main dashboard provides metrics to Leadership and Account Manager. Users can toggle between audience types to view relevant statistics including total accounts, active subscriptions, inactive accounts, and workflow counts. The analytics module features pie charts showing subscription status breakdowns (active vs. inactive), bar charts comparing notifications sent versus billed, horizontal bar charts highlighting top-performing workflows, and detailed usage statistics segmented by account status. Key metrics include total accounts, messages processed, notifications sent/billed, and record counts across all client accounts.
 
 **Account Management**
 The Accounts page provides a way to fetch accounts and filter account based on UUID, account labels, subscription status and workflow name. The interface supports pagination for handling large datasets efficiently.
 
 **Data Ingestion**
-The ingestion page is used for bulk data uploads that supports CSV. Files are validated in real-time with detailed error reporting for header mismatches, showing missing columns, extra columns, and expected headers. Users can reload the baseline dataset from the starter CSV at any time, resetting all data to its original state.
+The ingestion page is used for CSV data uploads. Files are validated with detailed error reporting for header mismatches, showing missing columns, extra columns, and expected headers. Users can reload the baseline dataset from the starter CSV at any time, resetting all data to its original state.
 
 The application is fully containerized with Docker. 
 
 **Decisions Made for when a row of data is regarded as invalid**
 
-- If a two rows have the same account_uuid and belong to the same workflow, one of the rows is regarded to be the source of truth. We pick the first row and drop the other rows as invalid. This is ensure simplicity of the app. Account UUID are regarded as unique per workflow. 
+- If two rows have the same account_uuid and belong to the same workflow, one of the rows is regarded to be the source of truth. We pick the first row and drop the other rows as they are regarded as invalid. This is to ensure simplicity of the app. Account UUID are regarded as unique per workflow. 
 
 ## Prerequisites
 ### For Docker Setup
