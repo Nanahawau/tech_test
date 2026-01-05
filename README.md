@@ -57,7 +57,7 @@ docker compose up
 
 **First-time build takes 2-5 minutes.** Subsequent starts are much faster.
 
-Open your browser:
+Open your browser and access the application via these endpoints
 - **Frontend:** http://localhost/login 
 - **Backend API:** http://localhost:8000
 - **API Docs:** http://localhost:8000/docs

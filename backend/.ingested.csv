@@ -1,0 +1,3 @@
+Account UUID,Account Label,Subscription Status,Admin Seats,User Seats,Read Only Seats,Total Records,Automation Count,Workflow Title,Messages Processed,Notifications Sent,Notifications Billed
+uuid-123,Test Account,active,2,5,3,1000,10,Test Workflow,5000,4500,4000
+uuid-456,Demo Account,trial,1,2,1,500,5,Demo Workflow,2000,1800,1500

@@ -50,6 +50,11 @@ app.include_router(ingestion_router)
 app.include_router(insights_router)
 app.include_router(auth_router)
 
+
+app.get("/")
+def root():
+    return {"message": "Welcome to the Custome insights backend!"}   
+
 @app.get("/health")
 def health():
     if not STARTER_CSV.exists():
