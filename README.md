@@ -120,6 +120,28 @@ Frontend will be available at: http://localhost:4200
 
 **Keep this terminal open too.**
 
+
+
+### **Run Frontend Tests**
+
+```bash
+# Navigate to frontend folder
+cd frontend
+
+# Install dependencies (first time only)
+npm test
+```
+
+### **Run Backend Tests**
+
+```bash
+# Navigate to backend folder
+cd backend
+
+# Install dependencies (first time only)
+pytest
+```
+
 ---
 
 ## Accessing the Application
