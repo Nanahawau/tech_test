@@ -51,9 +51,9 @@ app.include_router(insights_router)
 app.include_router(auth_router)
 
 
-app.get("/")
+@app.get("/")
 def root():
-    return {"message": "Welcome to the Custome insights backend!"}   
+    return {"message": "Welcome to the Customer insights backend!"}   
 
 @app.get("/health")
 def health():
