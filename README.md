@@ -43,8 +43,8 @@ Make sure Docker Desktop is running (check for the Docker icon in your menu bar/
 ### **Step 2: Clone the Repository**
 ```bash
 git clone https://github.com/Nanahawau/tech_test
+
 cd tech_test/backend 
-Create .env file using .env.sample as a sample file 
 ```
 
 ### **Step 3: Build and Start the Application**
