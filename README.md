@@ -124,6 +124,8 @@ Frontend will be available at: http://localhost:4200
 
 ### **Run Frontend Tests**
 
+Component tests were written on the frontend and controller tests were written for the backend.
+
 ```bash
 # Navigate to frontend folder
 cd frontend
@@ -157,3 +159,9 @@ pytest
 ## Demo Credentials 
 - email: test@gmail.com
 - password: test
+
+
+
+### **Improvements**
+
+- Write more tests to cover services on the frontend and backend 
