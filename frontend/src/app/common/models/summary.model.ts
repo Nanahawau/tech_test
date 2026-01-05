@@ -1,6 +1,5 @@
 export type Audience = 'leadership' | 'account_manager';
 
-// Leadership Models
 export interface LeadershipAnalytics {
   accounts_total: number;
   accounts_active: number;
@@ -18,7 +17,6 @@ export interface LeadershipSummary {
   analytics: LeadershipAnalytics;
 }
 
-// Account Manager Models
 export interface AccountManagerAnalytics {
   accounts_total: number;
   inactive_with_usage_count: number;
@@ -53,11 +51,12 @@ export interface AccountManagerSummary {
 
 export type SummaryResponse = LeadershipSummary | AccountManagerSummary;
 
-// Type guards
 export function isLeadershipSummary(summary: SummaryResponse): summary is LeadershipSummary {
   return 'analytics' in summary && 'accounts_active' in summary.analytics;
 }
 
-export function isAccountManagerSummary(summary: SummaryResponse): summary is AccountManagerSummary {
+export function isAccountManagerSummary(
+  summary: SummaryResponse,
+): summary is AccountManagerSummary {
   return 'action_lists' in summary;
 }

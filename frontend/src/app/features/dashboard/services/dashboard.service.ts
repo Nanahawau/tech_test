@@ -4,11 +4,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiSuccessResponse } from '../../../common/models/api-response.model';
 import { environment } from '../../../environments/environment';
-import { AccountManagerSummary, Audience, LeadershipSummary, SummaryResponse } from '../../../common/models/summary.model';
-
+import {
+  AccountManagerSummary,
+  Audience,
+  LeadershipSummary,
+  SummaryResponse,
+} from '../../../common/models/summary.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardService {
   private apiUrl = `${environment.apiBaseUrl}/api/insights`;
@@ -16,12 +20,9 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   getSummary(audience: Audience): Observable<SummaryResponse> {
-    return this.http.get<ApiSuccessResponse<SummaryResponse>>(
-      `${this.apiUrl}/summary`,
-      { params: { audience } }
-    ).pipe(
-      map(response => response.data)
-    );
+    return this.http
+      .get<ApiSuccessResponse<SummaryResponse>>(`${this.apiUrl}/summary`, { params: { audience } })
+      .pipe(map((response) => response.data));
   }
 
   getLeadershipSummary(): Observable<LeadershipSummary> {

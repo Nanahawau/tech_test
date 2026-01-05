@@ -4,13 +4,12 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Audience } from '../../../../common/models/summary.model';
 import { MatIconModule } from '@angular/material/icon';
 
-
 @Component({
   selector: 'app-audience-selector',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonToggleModule],
   templateUrl: './audience-selector.component.html',
-  styleUrls: ['./audience-selector.component.css']
+  styleUrls: ['./audience-selector.component.css'],
 })
 export class AudienceSelectorComponent {
   @Input() selectedAudience: Audience = 'leadership';

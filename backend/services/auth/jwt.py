@@ -20,6 +20,7 @@ def validate_user(
     expires_minutes: Optional[int] = None,
 ) -> tuple[str, int]:
     exp_minutes = expires_minutes or settings.access_token_exp_minutes
+    print(exp_minutes)
     expires_in_seconds = int(timedelta(minutes=exp_minutes).total_seconds())
 
     exp = datetime.now(timezone.utc) + timedelta(minutes=exp_minutes)

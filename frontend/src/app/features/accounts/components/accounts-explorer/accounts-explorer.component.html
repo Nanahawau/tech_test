@@ -3,9 +3,7 @@
   <div class="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
     <div>
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Accounts</h1>
-      <p class="text-sm sm:text-base text-gray-600 mt-1">
-        View all customer accounts
-      </p>
+      <p class="text-sm sm:text-base text-gray-600 mt-1">View all customer accounts</p>
     </div>
   </div>
 
@@ -19,11 +17,20 @@
           <!-- Account UUID Field -->
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Account UUID</mat-label>
-            <input matInput [formControl]="accountUuidControl" placeholder="Enter exact account UUID..."
-              class="font-mono text-sm" />
+            <input
+              matInput
+              [formControl]="accountUuidControl"
+              placeholder="Enter exact account UUID..."
+              class="font-mono text-sm"
+            />
             <mat-hint>Search by exact account identifier</mat-hint>
-            <button mat-icon-button matSuffix *ngIf="accountUuidControl.value" (click)="accountUuidControl.setValue('')"
-              matTooltip="Clear UUID">
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="accountUuidControl.value"
+              (click)="accountUuidControl.setValue('')"
+              matTooltip="Clear UUID"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -31,11 +38,20 @@
           <!-- Account Label Search -->
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Account Label</mat-label>
-            <input matInput [formControl]="searchControl" placeholder="Search by account label..." />
+            <input
+              matInput
+              [formControl]="searchControl"
+              placeholder="Search by account label..."
+            />
             <mat-icon matPrefix class="text-indigo-600">badge</mat-icon>
             <mat-hint>Partial match on account label</mat-hint>
-            <button mat-icon-button matSuffix *ngIf="searchControl.value" (click)="searchControl.setValue('')"
-              matTooltip="Clear search">
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="searchControl.value"
+              (click)="searchControl.setValue('')"
+              matTooltip="Clear search"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -60,8 +76,13 @@
             <input matInput [formControl]="workflowFilter" placeholder="Exact workflow name..." />
             <mat-icon matPrefix class="text-indigo-600">autorenew</mat-icon>
             <mat-hint>Case-insensitive exact match</mat-hint>
-            <button mat-icon-button matSuffix *ngIf="workflowFilter.value" (click)="workflowFilter.setValue('')"
-              matTooltip="Clear workflow">
+            <button
+              mat-icon-button
+              matSuffix
+              *ngIf="workflowFilter.value"
+              (click)="workflowFilter.setValue('')"
+              matTooltip="Clear workflow"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -71,8 +92,17 @@
 
           <!-- Clear Filters Button -->
           <div class="flex items-end">
-            <button mat-stroked-button (click)="clearFilters()" class="h-14 w-full"
-              [disabled]="!accountUuidControl.value && !searchControl.value && statusFilter.value === 'all' && !workflowFilter.value">
+            <button
+              mat-stroked-button
+              (click)="clearFilters()"
+              class="h-14 w-full"
+              [disabled]="
+                !accountUuidControl.value &&
+                !searchControl.value &&
+                statusFilter.value === 'all' &&
+                !workflowFilter.value
+              "
+            >
               <mat-icon class="mr-2">clear_all</mat-icon>
               Clear All Filters
             </button>
@@ -81,8 +111,14 @@
 
         <!-- Active Filters Chips -->
         <div
-          *ngIf="accountUuidControl.value || searchControl.value || workflowFilter.value || statusFilter.value !== 'all'"
-          class="mt-4 flex flex-wrap gap-2 pt-4 border-t border-gray-200">
+          *ngIf="
+            accountUuidControl.value ||
+            searchControl.value ||
+            workflowFilter.value ||
+            statusFilter.value !== 'all'
+          "
+          class="mt-4 flex flex-wrap gap-2 pt-4 border-t border-gray-200"
+        >
           <div class="text-xs font-medium text-gray-600 flex items-center mr-2">
             <mat-icon class="text-sm mr-1">filter_alt</mat-icon>
             Active Filters:
@@ -123,10 +159,11 @@
         <!-- Results Summary -->
         <div class="mt-4 flex items-center justify-between text-sm text-gray-600">
           <span *ngIf="state.pageData">
-            Showing <strong>{{ state.pageData.items.length }}</strong> of <strong>{{ state.pageData.total_items
-              }}</strong> accounts
+            Showing <strong>{{ state.pageData.items.length }}</strong> of
+            <strong>{{ state.pageData.total_items }}</strong> accounts
             <span class="text-gray-400 mx-2">•</span>
-            Page <strong>{{ state.pageData.page }}</strong> of <strong>{{ state.pageData.total_pages }}</strong>
+            Page <strong>{{ state.pageData.page }}</strong> of
+            <strong>{{ state.pageData.total_pages }}</strong>
           </span>
         </div>
       </div>
@@ -149,14 +186,20 @@
     </mat-card>
 
     <!-- Table -->
-    <mat-card *ngIf="!state.isLoading && !state.error && state.pageData && state.pageData.items.length > 0">
+    <mat-card
+      *ngIf="!state.isLoading && !state.error && state.pageData && state.pageData.items.length > 0"
+    >
       <div class="overflow-x-auto">
-        <table mat-table [dataSource]="state.pageData.items" matSort (matSortChange)="onSort($event)" class="w-full">
+        <table
+          mat-table
+          [dataSource]="state.pageData.items"
+          matSort
+          (matSortChange)="onSort($event)"
+          class="w-full"
+        >
           <!-- Account Label Column -->
           <ng-container matColumnDef="account_label">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold">
-              Account
-            </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold">Account</th>
             <td mat-cell *matCellDef="let account" class="py-4">
               <div>
                 <p class="font-medium text-gray-900">{{ account.account_label }}</p>
@@ -165,21 +208,32 @@
                 <!-- Workflows -->
                 <div *ngIf="account.workflows.count > 0" class="mt-2">
                   <!-- Single workflow -->
-                  <div *ngIf="account.workflows.count === 1" class="flex items-center gap-1 text-xs text-gray-600">
+                  <div
+                    *ngIf="account.workflows.count === 1"
+                    class="flex items-center gap-1 text-xs text-gray-600"
+                  >
                     <mat-icon class="text-xs text-purple-600">autorenew</mat-icon>
                     {{ account.workflows.titles[0] }}
                   </div>
 
                   <!-- Multiple workflows with menu -->
-                  <button *ngIf="account.workflows.count > 1" mat-button [matMenuTriggerFor]="workflowMenu"
-                    class="text-xs px-2 py-1 min-w-0 h-auto">
+                  <button
+                    *ngIf="account.workflows.count > 1"
+                    mat-button
+                    [matMenuTriggerFor]="workflowMenu"
+                    class="text-xs px-2 py-1 min-w-0 h-auto"
+                  >
                     <mat-icon class="text-xs mr-1 text-purple-600">autorenew</mat-icon>
                     {{ account.workflows.count }} Workflows
                     <mat-icon class="text-xs ml-1">arrow_drop_down</mat-icon>
                   </button>
 
                   <mat-menu #workflowMenu="matMenu">
-                    <button mat-menu-item *ngFor="let workflow of account.workflows.titles" class="text-sm">
+                    <button
+                      mat-menu-item
+                      *ngFor="let workflow of account.workflows.titles"
+                      class="text-sm"
+                    >
                       <mat-icon class="text-purple-600">autorenew</mat-icon>
                       <span>{{ workflow }}</span>
                     </button>
@@ -191,12 +245,12 @@
 
           <!-- Status Column -->
           <ng-container matColumnDef="subscription_status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold">
-              Status
-            </th>
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Status</th>
             <td mat-cell *matCellDef="let account">
-              <span [ngClass]="getStatusColor(account.subscription.status)"
-                class="px-2 py-1 rounded-full text-xs font-medium capitalize">
+              <span
+                [ngClass]="getStatusColor(account.subscription.status)"
+                class="px-2 py-1 rounded-full text-xs font-medium capitalize"
+              >
                 {{ account.subscription.status }}
               </span>
             </td>
@@ -204,15 +258,15 @@
 
           <!-- Seats Column -->
           <ng-container matColumnDef="seats">
-            <th mat-header-cell *matHeaderCellDef class="font-semibold">
-              Seats
-            </th>
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Seats</th>
             <td mat-cell *matCellDef="let account">
               <div class="text-sm">
                 <div class="font-medium text-gray-900 mb-2">{{ getTotalSeats(account) }} total</div>
                 <div class="grid grid-cols-3 gap-2 text-xs">
                   <div class="text-center">
-                    <div class="text-indigo-600 font-bold">{{ account.subscription.admin_seats }}</div>
+                    <div class="text-indigo-600 font-bold">
+                      {{ account.subscription.admin_seats }}
+                    </div>
                     <div class="text-gray-500">Admin</div>
                   </div>
                   <div class="text-center">
@@ -220,7 +274,9 @@
                     <div class="text-gray-500">User</div>
                   </div>
                   <div class="text-center">
-                    <div class="text-gray-600 font-bold">{{ account.subscription.read_only_seats }}</div>
+                    <div class="text-gray-600 font-bold">
+                      {{ account.subscription.read_only_seats }}
+                    </div>
                     <div class="text-gray-500">View</div>
                   </div>
                 </div>
@@ -230,9 +286,7 @@
 
           <!-- Records Column -->
           <ng-container matColumnDef="records">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold">
-              Records
-            </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold">Records</th>
             <td mat-cell *matCellDef="let account">
               <span class="font-medium">{{ formatNumber(account.usage.total_records) }}</span>
             </td>
@@ -276,19 +330,32 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"
-            class="hover:bg-gray-50 cursor-pointer transition-colors"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="hover:bg-gray-50 cursor-pointer transition-colors"
+          ></tr>
         </table>
       </div>
 
       <!-- Paginator -->
-      <mat-paginator [length]="state.pageData.total_items" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        [pageIndex]="page - 1" (page)="onPageChange($event)" showFirstLastButtons>
+      <mat-paginator
+        [length]="state.pageData.total_items"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="page - 1"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+      >
       </mat-paginator>
     </mat-card>
 
     <!-- Empty State -->
-    <mat-card *ngIf="!state.isLoading && !state.error && state.pageData && state.pageData.items.length === 0">
+    <mat-card
+      *ngIf="
+        !state.isLoading && !state.error && state.pageData && state.pageData.items.length === 0
+      "
+    >
       <div class="p-12 text-center">
         <mat-icon class="text-6xl text-gray-400 mb-4">search_off</mat-icon>
         <h3 class="text-lg font-medium text-gray-900 mb-2">No accounts found</h3>

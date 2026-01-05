@@ -1,5 +1,7 @@
+export type AccountStatus = 'active' | 'inactive';
+
 export interface SubscriptionDTO {
-  status: 'active' | 'inactive';
+  status: AccountStatus;
   admin_seats: number;
   user_seats: number;
   read_only_seats: number;
@@ -35,7 +37,6 @@ export interface AccountsPageDTO {
 }
 
 export type Account = AccountRecordDTO;
-export type AccountStatus = 'active' | 'inactive';
 
 export interface AccountQueryParams {
   page?: number;
@@ -48,17 +49,15 @@ export interface AccountQueryParams {
   sort_dir?: SortDir;
 }
 
-
 export enum SortBy {
   ACCOUNT_LABEL = 'account_label',
-  SUBSCRIPTION_STATUS = 'subscription_status',
-  TOTAL_RECORDS = 'total_records',
   AUTOMATION_COUNT = 'automation_count',
   MESSAGES_PROCESSED = 'messages_processed',
-  NOTIFICATIONS_SENT = 'notifications_sent'
+  NOTIFICATIONS_SENT = 'notifications_sent',
+  TOTAL_RECORDS = 'total_records',
 }
 
 export enum SortDir {
   ASC = 'asc',
-  DESC = 'desc'
+  DESC = 'desc',
 }

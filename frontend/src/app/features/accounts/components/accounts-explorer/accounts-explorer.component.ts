@@ -17,7 +17,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { AccountsService } from '../../services/accounts.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
-import { Account, AccountsPageDTO, AccountStatus, SortBy, SortDir } from '../../../../common/models/account.model';
+import {
+  Account,
+  AccountsPageDTO,
+  AccountStatus,
+  SortBy,
+  SortDir,
+} from '../../../../common/models/account.model';
 import { MatMenuModule } from '@angular/material/menu';
 
 interface AccountsState {
@@ -44,16 +50,16 @@ interface AccountsState {
     MatTooltipModule,
     MatCardModule,
     LoadingSpinnerComponent,
-    MatMenuModule
+    MatMenuModule,
   ],
   templateUrl: './accounts-explorer.component.html',
-  styleUrls: ['./accounts-explorer.component.css']
+  styleUrls: ['./accounts-explorer.component.css'],
 })
 export class AccountsExplorerComponent implements OnInit {
   private stateSubject = new BehaviorSubject<AccountsState>({
     pageData: null,
     isLoading: false,
-    error: null
+    error: null,
   });
 
   state$ = this.stateSubject.asObservable();
@@ -72,7 +78,7 @@ export class AccountsExplorerComponent implements OnInit {
     'records',
     'automations',
     'messages',
-    'notifications'
+    'notifications',
   ];
 
   // Pagination - default values
@@ -86,33 +92,29 @@ export class AccountsExplorerComponent implements OnInit {
 
   // Mapping for sort columns
   private sortColumnMap: { [key: string]: SortBy } = {
-    'account_label': SortBy.ACCOUNT_LABEL,
-    'subscription_status': SortBy.SUBSCRIPTION_STATUS,
-    'records': SortBy.TOTAL_RECORDS,
-    'automations': SortBy.AUTOMATION_COUNT,
-    'messages': SortBy.MESSAGES_PROCESSED,
-    'notifications': SortBy.NOTIFICATIONS_SENT
+    account_label: SortBy.ACCOUNT_LABEL,
+    records: SortBy.TOTAL_RECORDS,
+    automations: SortBy.AUTOMATION_COUNT,
+    messages: SortBy.MESSAGES_PROCESSED,
+    notifications: SortBy.NOTIFICATIONS_SENT,
   };
 
   constructor(
     private accountsService: AccountsService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    // Check for query params (from dashboard)
-    this.route.queryParams.subscribe(params => {
+    // Check for query params
+    this.route.queryParams.subscribe((params) => {
       if (params['account_uuid']) {
         this.accountUuidControl.setValue(params['account_uuid'], { emitEvent: false });
       }
     });
 
     this.accountUuidControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe(() => {
         this.page = 1;
         this.loadAccounts();
@@ -120,10 +122,7 @@ export class AccountsExplorerComponent implements OnInit {
 
     // Setup search with debounce
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe(() => {
         this.page = 1; // Reset to first page on search
         this.loadAccounts();
@@ -137,10 +136,7 @@ export class AccountsExplorerComponent implements OnInit {
 
     // Setup workflow filter
     this.workflowFilter.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe(() => {
         this.page = 1;
         this.loadAccounts();
@@ -156,7 +152,7 @@ export class AccountsExplorerComponent implements OnInit {
     this.stateSubject.next({
       ...currentState,
       isLoading: true,
-      error: null
+      error: null,
     });
 
     const params = {
@@ -166,10 +162,11 @@ export class AccountsExplorerComponent implements OnInit {
       sort_dir: this.sortDir,
       ...(this.accountUuidControl.value && { account_uuid: this.accountUuidControl.value }),
       ...(this.searchControl.value && { search: this.searchControl.value }),
-      ...(this.statusFilter.value && this.statusFilter.value !== 'all' && {
-        status: this.statusFilter.value
-      }),
-      ...(this.workflowFilter.value && { workflow_title: this.workflowFilter.value })
+      ...(this.statusFilter.value &&
+        this.statusFilter.value !== 'all' && {
+          status: this.statusFilter.value,
+        }),
+      ...(this.workflowFilter.value && { workflow_title: this.workflowFilter.value }),
     };
 
     this.accountsService.getAccounts(params).subscribe({
@@ -177,7 +174,7 @@ export class AccountsExplorerComponent implements OnInit {
         this.stateSubject.next({
           pageData,
           isLoading: false,
-          error: null
+          error: null,
         });
       },
       error: (error) => {
@@ -185,9 +182,9 @@ export class AccountsExplorerComponent implements OnInit {
         this.stateSubject.next({
           ...this.stateSubject.value,
           isLoading: false,
-          error: 'Failed to load accounts. Please try again.'
+          error: 'Failed to load accounts. Please try again.',
         });
-      }
+      },
     });
   }
 
@@ -204,7 +201,7 @@ export class AccountsExplorerComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    this.page = event.pageIndex + 1; // Material paginator is 0-based, API is 1-based
+    this.page = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.loadAccounts();
   }
@@ -219,7 +216,7 @@ export class AccountsExplorerComponent implements OnInit {
     // Clear query params
     this.router.navigate([], {
       queryParams: {},
-      replaceUrl: true
+      replaceUrl: true,
     });
 
     this.loadAccounts();
@@ -228,15 +225,17 @@ export class AccountsExplorerComponent implements OnInit {
   getStatusColor(status: AccountStatus): string {
     const colors = {
       active: 'bg-green-100 text-green-800',
-      inactive: 'bg-gray-100 text-gray-800',
-      trial: 'bg-blue-100 text-blue-800',
-      cancelled: 'bg-red-100 text-red-800'
+      inactive: 'bg-red-100 text-red-800',
     };
     return colors[status] || colors.inactive;
   }
 
   getTotalSeats(account: Account): number {
-    return account.subscription.admin_seats + account.subscription.user_seats + account.subscription.read_only_seats;
+    return (
+      account.subscription.admin_seats +
+      account.subscription.user_seats +
+      account.subscription.read_only_seats
+    );
   }
 
   formatNumber(num: number): string {

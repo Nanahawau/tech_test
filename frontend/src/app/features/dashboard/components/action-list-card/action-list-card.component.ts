@@ -11,14 +11,14 @@ import { ActionList } from '../../../../common/models/summary.model';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './action-list-card.component.html',
-  styleUrls: ['./action-list-card.component.css']
+  styleUrls: ['./action-list-card.component.css'],
 })
 export class ActionListCardComponent {
   @Input() title = '';
   @Input() actionList: ActionList | null = null;
   @Input() iconName = 'warning';
   @Input() iconColor = 'text-orange-600';
-  
+
   isExpanded = true; // Expanded by default
 
   constructor(private router: Router) {}
@@ -28,8 +28,8 @@ export class ActionListCardComponent {
   }
 
   viewAccount(accountUuid: string): void {
-    this.router.navigate(['/accounts'], { 
-      queryParams: { account_uuid: accountUuid } 
+    this.router.navigate(['/accounts'], {
+      queryParams: { account_uuid: accountUuid },
     });
   }
 

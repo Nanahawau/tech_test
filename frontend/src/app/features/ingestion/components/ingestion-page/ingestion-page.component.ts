@@ -33,10 +33,10 @@ interface IngestionState {
     MatCardModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   templateUrl: './ingestion-page.component.html',
-  styleUrls: ['./ingestion-page.component.css']
+  styleUrls: ['./ingestion-page.component.css'],
 })
 export class IngestionPageComponent {
   private stateSubject = new BehaviorSubject<IngestionState>({
@@ -45,7 +45,7 @@ export class IngestionPageComponent {
     uploadProgress: null,
     lastResult: null,
     error: null,
-    selectedFile: null
+    selectedFile: null,
   });
 
   state$ = this.stateSubject.asObservable();
@@ -57,8 +57,8 @@ export class IngestionPageComponent {
   constructor(
     private ingestionService: IngestionService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+  ) {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -98,7 +98,7 @@ export class IngestionPageComponent {
       this.snackBar.open(
         `Invalid file type. Please upload: ${this.acceptedTypes.join(', ')}`,
         'Close',
-        { duration: 5000 }
+        { duration: 5000 },
       );
       return;
     }
@@ -106,17 +106,13 @@ export class IngestionPageComponent {
     // Validate file size (max 50MB)
     const maxSize = 50 * 1024 * 1024; // 50MB
     if (file.size > maxSize) {
-      this.snackBar.open(
-        'File is too large. Maximum size is 50MB.',
-        'Close',
-        { duration: 5000 }
-      );
+      this.snackBar.open('File is too large. Maximum size is 50MB.', 'Close', { duration: 5000 });
       return;
     }
 
     this.stateSubject.next({
       ...currentState,
-      selectedFile: file
+      selectedFile: file,
     });
   }
 
@@ -132,7 +128,7 @@ export class IngestionPageComponent {
       ...currentState,
       isUploading: true,
       error: null,
-      uploadProgress: { progress: 0, status: 'uploading', message: 'Starting upload...' }
+      uploadProgress: { progress: 0, status: 'uploading', message: 'Starting upload...' },
     });
 
     this.ingestionService.uploadFile(currentState.selectedFile).subscribe({
@@ -141,7 +137,7 @@ export class IngestionPageComponent {
         this.stateSubject.next({
           ...state,
           uploadProgress: progress,
-          isUploading: progress.status !== 'complete'
+          isUploading: progress.status !== 'complete',
         });
 
         if (progress.status === 'complete') {
@@ -149,7 +145,7 @@ export class IngestionPageComponent {
           // Reset selected file after successful upload
           this.stateSubject.next({
             ...this.stateSubject.value,
-            selectedFile: null
+            selectedFile: null,
           });
         }
       },
@@ -157,15 +153,16 @@ export class IngestionPageComponent {
         this.stateSubject.next({
           ...this.stateSubject.value,
           isUploading: false,
-          uploadProgress: null
+          uploadProgress: null,
         });
         if (error.status === 422 && error.error?.error?.details) {
           this.showCsvErrorDialog(error.error?.error?.details);
         } else {
-          const errorMessage = error.error?.error?.message || 'Failed to upload file. Please try again.';
+          const errorMessage =
+            error.error?.error?.message || 'Failed to upload file. Please try again.';
           this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
         }
-      }
+      },
     });
   }
 
@@ -178,8 +175,8 @@ export class IngestionPageComponent {
         expected: errorDetails.expected || [],
         missing: errorDetails.missing || [],
         extra: errorDetails.extra || [],
-        headersPresent: errorDetails.headers_present || []
-      }
+        headersPresent: errorDetails.headers_present || [],
+      },
     });
   }
 
@@ -196,7 +193,7 @@ export class IngestionPageComponent {
         this.stateSubject.next({
           ...this.stateSubject.value,
           isReloading: false,
-          lastResult: result
+          lastResult: result,
         });
         this.snackBar.open('Data reloaded successfully!', 'Close', { duration: 3000 });
       },
@@ -207,7 +204,7 @@ export class IngestionPageComponent {
           isReloading: false,
         });
         this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
-      }
+      },
     });
   }
 
@@ -224,6 +221,6 @@ export class IngestionPageComponent {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 }

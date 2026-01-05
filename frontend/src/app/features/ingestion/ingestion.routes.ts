@@ -3,6 +3,9 @@ import { Routes } from '@angular/router';
 export const INGESTION_ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () => import('./components/ingestion-page/ingestion-page.component').then(m => m.IngestionPageComponent)
-  }
+    loadComponent: () =>
+      import('./components/ingestion-page/ingestion-page.component').then(
+        (m) => m.IngestionPageComponent,
+      ),
+  },
 ];

@@ -11,22 +11,15 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    MatSidenavModule,
-    ToolbarComponent,
-    SidenavComponent
-  ],
+  imports: [CommonModule, RouterOutlet, MatSidenavModule, ToolbarComponent, SidenavComponent],
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.css']
+  styleUrls: ['./shell.component.css'],
 })
 export class ShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  isHandset$ = this.breakpointObserver.observe([Breakpoints.Handset])
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  isHandset$ = this.breakpointObserver.observe([Breakpoints.Handset]).pipe(
+    map((result) => result.matches),
+    shareReplay(),
+  );
 }

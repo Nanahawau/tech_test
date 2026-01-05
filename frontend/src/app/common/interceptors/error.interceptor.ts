@@ -21,13 +21,13 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next) => {
           return throwError(() => error);
         }
 
-        if (error.status === 422 && error.error?.detail) {
-          const details = Array.isArray(error.error.detail)
-            ? error.error.detail.map((e: any) => e.msg).join(', ')
-            : error.error.detail;
+        if (error.status === 422 && error.error?.details) {
+          const details = Array.isArray(error.error.details)
+            ? error.error.details.map((e: any) => e.msg).join(', ')
+            : error.error.details;
           errorMessage = `Validation error: ${details}`;
-        } else if (error.error?.detail) {
-          errorMessage = error.error.detail;
+        } else if (error.error?.details) {
+          errorMessage = error.error.details;
         } else {
           errorMessage = `Error ${error.status}: ${error.message}`;
         }
@@ -35,10 +35,10 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next) => {
 
       snackBar.open(errorMessage, 'Close', {
         duration: 5000,
-        panelClass: ['error-snackbar']
+        panelClass: ['error-snackbar'],
       });
 
       return throwError(() => error);
-    })
+    }),
   );
 };

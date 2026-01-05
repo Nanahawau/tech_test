@@ -30,30 +30,30 @@ interface LoginState {
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
-   private stateSubject = new BehaviorSubject<LoginState>({
+  private stateSubject = new BehaviorSubject<LoginState>({
     isLoading: false,
-    errorMessage: ''
+    errorMessage: '',
   });
   state = this.stateSubject.asObservable();
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 
@@ -63,15 +63,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-     this.stateSubject.next({ isLoading: true, errorMessage: '' });
+    this.stateSubject.next({ isLoading: true, errorMessage: '' });
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-         this.stateSubject.next({ isLoading: false, errorMessage: '' });
+        this.stateSubject.next({ isLoading: false, errorMessage: '' });
         this.router.navigate(['/dashboard']);
       },
       error: (error: HttpErrorResponse) => {
-         let message = 'An error occurred. Please try again.';
+        let message = 'An error occurred. Please try again.';
         if (error.status === 401) {
           message = 'Invalid email or password';
         } else if (error.status === 0) {
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.stateSubject.next({ isLoading: false, errorMessage: message });
-      }
+      },
     });
   }
 

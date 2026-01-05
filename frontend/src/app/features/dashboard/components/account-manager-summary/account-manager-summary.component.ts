@@ -19,7 +19,7 @@ interface StatConfig {
   standalone: true,
   imports: [CommonModule, MatIconModule, StatCardComponent, ActionListCardComponent],
   templateUrl: './account-manager-summary.component.html',
-  styleUrls: ['./account-manager-summary.component.css']
+  styleUrls: ['./account-manager-summary.component.css'],
 })
 export class AccountManagerSummaryComponent {
   @Input() set summary(value: AccountManagerSummary | null) {
@@ -34,10 +34,11 @@ export class AccountManagerSummaryComponent {
 
   private buildStats(summary: AccountManagerSummary): void {
     const a = summary.analytics;
-    const totalIssues = a.inactive_with_usage_count + 
-                       a.active_zero_activity_count + 
-                       a.seats_vs_usage_mismatch_count + 
-                       a.billed_vs_sent_anomalies_count;
+    const totalIssues =
+      a.inactive_with_usage_count +
+      a.active_zero_activity_count +
+      a.seats_vs_usage_mismatch_count +
+      a.billed_vs_sent_anomalies_count;
 
     this.stats = [
       {
@@ -45,29 +46,29 @@ export class AccountManagerSummaryComponent {
         value: formatNumber(a.accounts_total),
         subtitle: 'Under management',
         icon: 'business',
-        iconColor: 'text-indigo-600'
+        iconColor: 'text-indigo-600',
       },
       {
         label: 'Accounts Needing Attention',
         value: formatNumber(totalIssues),
         subtitle: totalIssues === 0 ? 'All healthy!' : 'Require action',
         icon: totalIssues === 0 ? 'check_circle' : 'warning',
-        iconColor: totalIssues === 0 ? 'text-green-600' : 'text-orange-600'
+        iconColor: totalIssues === 0 ? 'text-green-600' : 'text-orange-600',
       },
       {
         label: 'Inactive with Usage',
         value: formatNumber(a.inactive_with_usage_count),
         subtitle: 'Subscription inactive',
         icon: 'pause_circle',
-        iconColor: 'text-orange-600'
+        iconColor: 'text-orange-600',
       },
       {
         label: 'Active Zero Activity',
         value: formatNumber(a.active_zero_activity_count),
         subtitle: 'No measured activity',
         icon: 'hourglass_empty',
-        iconColor: 'text-amber-600'
-      }
+        iconColor: 'text-amber-600',
+      },
     ];
   }
 }

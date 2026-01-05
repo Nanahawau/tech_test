@@ -15,19 +15,14 @@ interface CsvErrorData {
 @Component({
   selector: 'app-csv-error-dialog',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
   templateUrl: './csv-error-dialog.component.html',
-  styleUrls: ['./csv-error-dialog.component.css']
+  styleUrls: ['./csv-error-dialog.component.css'],
 })
 export class CsvErrorDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CsvErrorDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CsvErrorData
+    @Inject(MAT_DIALOG_DATA) public data: CsvErrorData,
   ) {}
 
   close(): void {

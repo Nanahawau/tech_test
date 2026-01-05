@@ -8,7 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
-// ✅ CRITICAL: Register Chart.js components
 import {
   Chart,
   ArcElement,
@@ -18,10 +17,9 @@ import {
   DoughnutController,
   BarController,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js';
 
-// Register all required Chart.js components
 Chart.register(
   ArcElement,
   BarElement,
@@ -30,7 +28,7 @@ Chart.register(
   DoughnutController,
   BarController,
   Tooltip,
-  Legend
+  Legend,
 );
 
 import { AnalyticsService } from '../../services/analytics.service';
@@ -56,10 +54,10 @@ interface AnalyticsState {
     MatIconModule,
     MatProgressSpinnerModule,
     BaseChartDirective,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
   templateUrl: './analytics-dashboard.component.html',
-  styleUrls: ['./analytics-dashboard.component.css']
+  styleUrls: ['./analytics-dashboard.component.css'],
 })
 export class AnalyticsDashboardComponent implements OnInit {
   private stateSubject = new BehaviorSubject<AnalyticsState>({
@@ -68,7 +66,7 @@ export class AnalyticsDashboardComponent implements OnInit {
     topWorkflows: null,
     usageByStatus: null,
     isLoading: false,
-    error: null
+    error: null,
   });
 
   state$ = this.stateSubject.asObservable();
@@ -78,10 +76,9 @@ export class AnalyticsDashboardComponent implements OnInit {
   notificationsChartType: 'bar' = 'bar';
   workflowsChartType: 'bar' = 'bar';
 
-  // Chart configurations
   subscriptionsChartData: ChartConfiguration<'doughnut'>['data'] = {
     labels: [],
-    datasets: []
+    datasets: [],
   };
 
   subscriptionsChartOptions: ChartConfiguration<'doughnut'>['options'] = {
@@ -89,17 +86,17 @@ export class AnalyticsDashboardComponent implements OnInit {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
       tooltip: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   };
 
   notificationsChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
-    datasets: []
+    datasets: [],
   };
 
   notificationsChartOptions: ChartConfiguration<'bar'>['options'] = {
@@ -107,22 +104,22 @@ export class AnalyticsDashboardComponent implements OnInit {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
       tooltip: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     scales: {
       y: {
-        beginAtZero: true
-      }
-    }
+        beginAtZero: true,
+      },
+    },
   };
 
   workflowsChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
-    datasets: []
+    datasets: [],
   };
 
   workflowsChartOptions: ChartConfiguration<'bar'>['options'] = {
@@ -131,17 +128,17 @@ export class AnalyticsDashboardComponent implements OnInit {
     indexAxis: 'y',
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
       tooltip: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     scales: {
       x: {
-        beginAtZero: true
-      }
-    }
+        beginAtZero: true,
+      },
+    },
   };
 
   constructor(private analyticsService: AnalyticsService) {}
@@ -156,62 +153,66 @@ export class AnalyticsDashboardComponent implements OnInit {
     this.stateSubject.next({
       ...currentState,
       isLoading: true,
-      error: null
+      error: null,
     });
 
     forkJoin({
       subscriptionsByStatus: this.analyticsService.getSubscriptionsByStatus(),
       notificationsSentVsBilled: this.analyticsService.getNotificationsSentVsBilled(),
       topWorkflows: this.analyticsService.getTopWorkflows(10),
-      usageByStatus: this.analyticsService.getUsageByStatus()
+      usageByStatus: this.analyticsService.getUsageByStatus(),
     }).subscribe({
       next: (data) => {
         this.stateSubject.next({
           ...data,
           isLoading: false,
-          error: null
+          error: null,
         });
         this.updateCharts(data);
       },
       error: (error) => {
-        console.error('❌ Failed to load analytics:', error);
+        console.error('Failed to load analytics:', error);
         this.stateSubject.next({
           ...this.stateSubject.value,
           isLoading: false,
-          error: 'Failed to load analytics. Please try again.'
+          error: 'Failed to load analytics. Please try again.',
         });
-      }
+      },
     });
   }
 
   updateCharts(data: any): void {
-    // Subscriptions by Status - Doughnut Chart
+
     if (data.subscriptionsByStatus) {
       this.subscriptionsChartData = {
-        labels: data.subscriptionsByStatus.labels.map((l: string) => 
-          l.charAt(0).toUpperCase() + l.slice(1)
+        labels: data.subscriptionsByStatus.labels.map(
+          (l: string) => l.charAt(0).toUpperCase() + l.slice(1),
         ),
-        datasets: [{
-          data: data.subscriptionsByStatus.values,
-          backgroundColor: ['#10b981', '#6b7280'],
-          borderWidth: 2,
-          borderColor: '#ffffff'
-        }]
+        datasets: [
+          {
+            data: data.subscriptionsByStatus.values,
+            backgroundColor: ['#10b981', '#6b7280'],
+            borderWidth: 2,
+            borderColor: '#ffffff',
+          },
+        ],
       };
     }
 
     // Notifications Sent vs Billed - Bar Chart
     if (data.notificationsSentVsBilled) {
       this.notificationsChartData = {
-        labels: data.notificationsSentVsBilled.labels.map((l: string) => 
-          l.charAt(0).toUpperCase() + l.slice(1)
+        labels: data.notificationsSentVsBilled.labels.map(
+          (l: string) => l.charAt(0).toUpperCase() + l.slice(1),
         ),
-        datasets: [{
-          data: data.notificationsSentVsBilled.values,
-          backgroundColor: ['#6366f1', '#8b5cf6'],
-          borderRadius: 8,
-          barThickness: 60
-        }]
+        datasets: [
+          {
+            data: data.notificationsSentVsBilled.values,
+            backgroundColor: ['#6366f1', '#8b5cf6'],
+            borderRadius: 8,
+            barThickness: 60,
+          },
+        ],
       };
     }
 
@@ -219,12 +220,14 @@ export class AnalyticsDashboardComponent implements OnInit {
     if (data.topWorkflows) {
       this.workflowsChartData = {
         labels: data.topWorkflows.labels,
-        datasets: [{
-          data: data.topWorkflows.values,
-          backgroundColor: '#6366f1',
-          borderRadius: 4,
-          barThickness: 25
-        }]
+        datasets: [
+          {
+            data: data.topWorkflows.values,
+            backgroundColor: '#6366f1',
+            borderRadius: 4,
+            barThickness: 25,
+          },
+        ],
       };
     }
   }

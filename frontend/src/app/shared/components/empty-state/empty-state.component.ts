@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './empty-state.component.html',
-  styleUrls: ['./empty-state.component.css']
+  styleUrls: ['./empty-state.component.css'],
 })
 export class EmptyStateComponent {
   @Input() icon = 'inbox';

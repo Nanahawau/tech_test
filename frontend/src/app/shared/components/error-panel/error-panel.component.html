@@ -4,10 +4,10 @@
     <div class="flex-1 space-y-3">
       <h3 class="text-lg font-medium text-red-800">{{ title }}</h3>
       <p class="text-red-700 text-sm">{{ message }}</p>
-      <button 
+      <button
         *ngIf="showRetry"
-        mat-raised-button 
-        color="primary" 
+        mat-raised-button
+        color="primary"
         (click)="retry.emit()"
         class="flex items-center gap-2"
       >

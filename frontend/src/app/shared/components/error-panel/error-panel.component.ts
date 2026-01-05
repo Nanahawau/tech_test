@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './error-panel.component.html',
-  styleUrls: ['./error-panel.component.css']
+  styleUrls: ['./error-panel.component.css'],
 })
 export class ErrorPanelComponent {
   @Input() title = 'Error';

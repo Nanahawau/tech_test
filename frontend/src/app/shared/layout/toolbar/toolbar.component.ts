@@ -16,16 +16,16 @@ import { AuthService } from '../../../common/services/auth.service';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+  styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent {
   @Output() menuToggle = new EventEmitter<void>();
-  
+
   private authService = inject(AuthService);
-  
+
   currentEmail = this.authService.getCurrentEmail() || 'User';
 
   onLogout(): void {

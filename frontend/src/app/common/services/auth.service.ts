@@ -6,7 +6,7 @@ import { AuthState, LoginRequest, TokenResponse } from '../models/auth.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
@@ -16,12 +16,12 @@ export class AuthService {
   private authState$ = new BehaviorSubject<AuthState>({
     token: null,
     email: null,
-    expiresAt: null
+    expiresAt: null,
   });
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {
     this.loadAuthState();
   }
@@ -47,23 +47,22 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<TokenResponse> {
-    return this.http.post<TokenResponse>(
-      `${environment.apiBaseUrl}/api/auth/token`,
-      credentials
-    ).pipe(
-      tap(response => {
-        const expiresAt = Date.now() + (response.data.expires_in * 1000);
-        localStorage.setItem(this.TOKEN_KEY, response.data.access_token);
-        localStorage.setItem(this.EMAIL_KEY, response.data.email);
-        localStorage.setItem(this.EXPIRES_KEY, expiresAt.toString());
+    return this.http
+      .post<TokenResponse>(`${environment.apiBaseUrl}/api/auth/token`, credentials)
+      .pipe(
+        tap((response) => {
+          const expiresAt = Date.now() + response.data.expires_in * 1000;
+          localStorage.setItem(this.TOKEN_KEY, response.data.access_token);
+          localStorage.setItem(this.EMAIL_KEY, response.data.email);
+          localStorage.setItem(this.EXPIRES_KEY, expiresAt.toString());
 
-        this.authState$.next({
-          token: response.data.access_token,
-          email: response.data.email,
-          expiresAt
-        });
-      })
-    );
+          this.authState$.next({
+            token: response.data.access_token,
+            email: response.data.email,
+            expiresAt,
+          });
+        }),
+      );
   }
 
   logout(): void {

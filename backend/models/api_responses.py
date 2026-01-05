@@ -11,22 +11,6 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     expires_in: int = Field(ge=1)
 
-
-class ApiErrorPayload(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    message: str
-    details: Optional[Any] = None
-
-
-class ApiErrorResponse(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    status: Literal[False] = False
-    data: None = None
-    error: ApiErrorPayload
-
-
 class ApiSuccessResponse(BaseModel, Generic[T]):
     model_config = ConfigDict(extra="forbid")
 

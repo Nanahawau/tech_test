@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -9,12 +13,10 @@ import { errorInterceptorFn } from './common/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(), 
+    provideBrowserGlobalErrorListeners(),
     // provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(
-      withInterceptors([tokenInterceptorFn, errorInterceptorFn])
-    )
-  ]
+    provideHttpClient(withInterceptors([tokenInterceptorFn, errorInterceptorFn])),
+  ],
 };

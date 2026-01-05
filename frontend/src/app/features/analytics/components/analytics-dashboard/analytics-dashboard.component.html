@@ -4,13 +4,16 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Analytics</h1>
-        <p class="text-sm sm:text-base text-gray-600 mt-1">
-          Performance metrics and insights
-        </p>
+        <p class="text-sm sm:text-base text-gray-600 mt-1">Performance metrics and insights</p>
       </div>
-      
+
       <!-- Refresh Button -->
-      <button mat-raised-button color="primary" (click)="loadAllAnalytics()" [disabled]="state.isLoading">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="loadAllAnalytics()"
+        [disabled]="state.isLoading"
+      >
         <mat-icon class="mr-2">refresh</mat-icon>
         Refresh Data
       </button>
@@ -20,11 +23,7 @@
   <!-- Main Content -->
   <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
     <!-- Loading State -->
-    <app-loading-spinner 
-      *ngIf="state.isLoading" 
-      [diameter]="60" 
-      message="Loading analytics..." 
-    />
+    <app-loading-spinner *ngIf="state.isLoading" [diameter]="60" message="Loading analytics..." />
 
     <!-- Error State -->
     <mat-card *ngIf="state.error && !state.isLoading">
@@ -122,7 +121,7 @@
           <div class="p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Subscriptions by Status</h2>
             <div class="h-64 flex items-center justify-center">
-              <canvas 
+              <canvas
                 baseChart
                 [data]="subscriptionsChartData"
                 [options]="subscriptionsChartOptions"
@@ -152,7 +151,7 @@
           <div class="p-6">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">Notifications: Sent vs Billed</h2>
             <div class="h-64">
-              <canvas 
+              <canvas
                 baseChart
                 [data]="notificationsChartData"
                 [options]="notificationsChartOptions"
@@ -163,13 +162,23 @@
             <div class="mt-4 grid grid-cols-2 gap-4">
               <div class="text-center">
                 <div class="text-2xl font-bold text-indigo-600">
-                  {{ formatNumber(state.usageByStatus.active.notifications_sent_total + state.usageByStatus.inactive.notifications_sent_total) }}
+                  {{
+                    formatNumber(
+                      state.usageByStatus.active.notifications_sent_total +
+                        state.usageByStatus.inactive.notifications_sent_total
+                    )
+                  }}
                 </div>
                 <div class="text-sm text-gray-600">Sent</div>
               </div>
               <div class="text-center">
                 <div class="text-2xl font-bold text-purple-600">
-                  {{ formatNumber(state.usageByStatus.active.notifications_billed_total + state.usageByStatus.inactive.notifications_billed_total) }}
+                  {{
+                    formatNumber(
+                      state.usageByStatus.active.notifications_billed_total +
+                        state.usageByStatus.inactive.notifications_billed_total
+                    )
+                  }}
                 </div>
                 <div class="text-sm text-gray-600">Billed</div>
               </div>
@@ -183,7 +192,7 @@
         <div class="p-6">
           <h2 class="text-xl font-semibold text-gray-900 mb-4">Top Workflows</h2>
           <div class="h-96">
-            <canvas 
+            <canvas
               baseChart
               [data]="workflowsChartData"
               [options]="workflowsChartOptions"

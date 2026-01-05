@@ -5,7 +5,9 @@
       <!-- Logo & Header -->
       <div class="mb-8">
         <div class="flex items-center gap-2 mb-6">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg">
+          <div
+            class="w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg"
+          >
             <mat-icon class="text-white text-xl">customer insights</mat-icon>
           </div>
           <span class="text-2xl font-bold text-gray-900">Customer Insights Platform</span>
@@ -15,8 +17,10 @@
       </div>
 
       <!-- Error Message -->
-      <div *ngIf="(state | async)?.errorMessage as error" 
-           class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+      <div
+        *ngIf="(state | async)?.errorMessage as error"
+        class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+      >
         <mat-icon class="text-red-600 text-xl flex-shrink-0">error</mat-icon>
         <span class="text-sm text-red-800">{{ error }}</span>
       </div>
@@ -35,12 +39,8 @@
               autocomplete="email"
             />
             <mat-icon matPrefix class="text-gray-400">email</mat-icon>
-            <mat-error *ngIf="email?.hasError('required')">
-              Email is required
-            </mat-error>
-            <mat-error *ngIf="email?.hasError('email')">
-              Please enter a valid email
-            </mat-error>
+            <mat-error *ngIf="email?.hasError('required')"> Email is required </mat-error>
+            <mat-error *ngIf="email?.hasError('email')"> Please enter a valid email </mat-error>
           </mat-form-field>
         </div>
 
@@ -65,9 +65,7 @@
             >
               <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-            <mat-error *ngIf="password?.hasError('required')">
-              Password is required
-            </mat-error>
+            <mat-error *ngIf="password?.hasError('required')"> Password is required </mat-error>
           </mat-form-field>
         </div>
 
@@ -92,7 +90,9 @@
       </form>
 
       <!-- Demo Credentials -->
-      <div class="mt-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+      <div
+        class="mt-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100"
+      >
         <div class="flex items-start gap-3">
           <mat-icon class="text-blue-600 text-xl flex-shrink-0">info</mat-icon>
           <div>
@@ -109,11 +109,18 @@
   </div>
 
   <!-- Right Side - Hero Section (Desktop Only) -->
-  <div class="hidden lg:flex flex-1 items-center justify-center p-12 bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-600 relative overflow-hidden">
+  <div
+    class="hidden lg:flex flex-1 items-center justify-center p-12 bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-600 relative overflow-hidden"
+  >
     <!-- Animated background circles -->
-    <div class="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-    
+    <div
+      class="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl animate-pulse"
+    ></div>
+    <div
+      class="absolute bottom-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 1s"
+    ></div>
+
     <div class="max-w-lg text-white relative z-10">
       <h2 class="text-4xl font-bold mb-4 leading-tight">
         Effortlessly view your customer insights
@@ -121,8 +128,7 @@
       <p class="text-lg text-indigo-100 mb-8 leading-relaxed">
         Log in to access your customer insights dashboard.
       </p>
-      
-      
+
       <!-- Feature highlights -->
       <div class="mt-8 grid grid-cols-3 gap-4 text-center">
         <div class="col-span-3 sm:col-span-1 sm:col-start-2">

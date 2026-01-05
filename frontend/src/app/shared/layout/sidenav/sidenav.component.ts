@@ -13,14 +13,9 @@ interface NavItem {
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatListModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, RouterModule, MatListModule, MatIconModule],
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+  styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent {
   navItems: NavItem[] = [

@@ -4,7 +4,6 @@ export interface ChartData {
   values: number[];
 }
 
-// Usage breakdown by subscription status
 export interface StatusUsageData {
   accounts: number;
   automation_count_total: number;
@@ -19,7 +18,6 @@ export interface UsageByStatusResponse {
   inactive: StatusUsageData;
 }
 
-// Query parameters
 export interface AnalyticsQueryParams {
   limit?: number;
 }

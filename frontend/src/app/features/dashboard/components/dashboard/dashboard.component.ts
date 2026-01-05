@@ -9,8 +9,14 @@ import { LeadershipSummaryComponent } from '../leadership-summary/leadership-sum
 import { AccountManagerSummaryComponent } from '../account-manager-summary/account-manager-summary.component';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { ErrorPanelComponent } from '../../../../shared/components/error-panel/error-panel.component';
-import { AccountManagerSummary, Audience, isAccountManagerSummary, isLeadershipSummary, LeadershipSummary, SummaryResponse } from '../../../../common/models/summary.model';
-
+import {
+  AccountManagerSummary,
+  Audience,
+  isAccountManagerSummary,
+  isLeadershipSummary,
+  LeadershipSummary,
+  SummaryResponse,
+} from '../../../../common/models/summary.model';
 
 interface DashboardState {
   isLoading: boolean;
@@ -29,24 +35,23 @@ interface DashboardState {
     LeadershipSummaryComponent,
     AccountManagerSummaryComponent,
     LoadingSpinnerComponent,
-    ErrorPanelComponent
+    ErrorPanelComponent,
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   selectedAudience: Audience = 'leadership';
-  
+
   private stateSubject = new BehaviorSubject<DashboardState>({
     isLoading: false,
     error: null,
-    summary: null
+    summary: null,
   });
-  
+
   state$ = this.stateSubject.asObservable();
 
-  constructor(private dashboardService: DashboardService) {
-  }
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.loadSummary();
@@ -61,7 +66,7 @@ export class DashboardComponent implements OnInit {
     this.stateSubject.next({
       isLoading: true,
       error: null,
-      summary: null
+      summary: null,
     });
 
     this.dashboardService.getSummary(this.selectedAudience).subscribe({
@@ -69,17 +74,17 @@ export class DashboardComponent implements OnInit {
         this.stateSubject.next({
           isLoading: false,
           error: null,
-          summary: data
+          summary: data,
         });
       },
       error: (err) => {
-        console.error('❌ Failed to load summary:', err);
+        console.error('Failed to load summary:', err);
         this.stateSubject.next({
           isLoading: false,
           error: 'Failed to load dashboard data. Please try again.',
-          summary: null
+          summary: null,
         });
-      }
+      },
     });
   }
 

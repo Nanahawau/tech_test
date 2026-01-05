@@ -5,11 +5,11 @@
       <div class="flex-1 space-y-1">
         <p class="text-sm font-medium text-gray-600">{{ label }}</p>
         <p class="text-3xl font-bold text-gray-900">
-          {{ value  }}
+          {{ value }}
         </p>
         <p *ngIf="subtitle" class="text-sm text-gray-500 mt-2">{{ subtitle }}</p>
       </div>
-      
+
       <!-- Right: Icon -->
       <div *ngIf="icon" class="ml-4">
         <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
@@ -20,22 +20,22 @@
 
     <!-- Trend Indicator -->
     <div *ngIf="trend !== undefined" class="mt-4 flex items-center gap-1 text-sm">
-      <mat-icon 
+      <mat-icon
         class="text-lg"
         [ngClass]="{
           'text-green-600': trend > 0,
           'text-red-600': trend < 0,
-          'text-gray-600': trend === 0
+          'text-gray-600': trend === 0,
         }"
       >
         {{ trend > 0 ? 'trending_up' : trend < 0 ? 'trending_down' : 'trending_flat' }}
       </mat-icon>
-      <span 
+      <span
         class="font-medium"
         [ngClass]="{
           'text-green-600': trend > 0,
           'text-red-600': trend < 0,
-          'text-gray-600': trend === 0
+          'text-gray-600': trend === 0,
         }"
       >
         {{ trend > 0 ? '+' : '' }}{{ trend }}%

@@ -18,15 +18,24 @@
   <!-- Error Details -->
   <div class="space-y-6">
     <!-- Missing Headers -->
-    <div *ngIf="data.missing && data.missing.length > 0" class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+    <div
+      *ngIf="data.missing && data.missing.length > 0"
+      class="bg-red-50 border-l-4 border-red-500 p-4 rounded"
+    >
       <div class="flex items-start gap-3">
         <mat-icon class="text-red-600 text-xl flex-shrink-0">remove_circle</mat-icon>
         <div class="flex-1">
-          <h3 class="font-semibold text-red-900 mb-2">Missing Headers ({{ data.missing.length }})</h3>
-          <p class="text-sm text-red-800 mb-3">Your CSV is missing the following required headers:</p>
+          <h3 class="font-semibold text-red-900 mb-2">
+            Missing Headers ({{ data.missing.length }})
+          </h3>
+          <p class="text-sm text-red-800 mb-3">
+            Your CSV is missing the following required headers:
+          </p>
           <div class="space-y-1">
-            <div *ngFor="let header of data.missing" 
-                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-red-200">
+            <div
+              *ngFor="let header of data.missing"
+              class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-red-200"
+            >
               <mat-icon class="text-xs text-red-600">close</mat-icon>
               <span class="text-red-900">{{ header }}</span>
             </div>
@@ -36,15 +45,20 @@
     </div>
 
     <!-- Extra Headers -->
-    <div *ngIf="data.extra && data.extra.length > 0" class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+    <div
+      *ngIf="data.extra && data.extra.length > 0"
+      class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded"
+    >
       <div class="flex items-start gap-3">
         <mat-icon class="text-amber-600 text-xl flex-shrink-0">add_circle</mat-icon>
         <div class="flex-1">
           <h3 class="font-semibold text-amber-900 mb-2">Extra Headers ({{ data.extra.length }})</h3>
           <p class="text-sm text-amber-800 mb-3">Your CSV contains unexpected headers:</p>
           <div class="space-y-1">
-            <div *ngFor="let header of data.extra" 
-                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-amber-200">
+            <div
+              *ngFor="let header of data.extra"
+              class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-amber-200"
+            >
               <mat-icon class="text-xs text-amber-600">add</mat-icon>
               <span class="text-amber-900">{{ header }}</span>
             </div>
@@ -59,9 +73,11 @@
         <mat-icon class="text-blue-600 text-xl flex-shrink-0">checklist</mat-icon>
         <div class="flex-1">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="font-semibold text-blue-900">Expected Headers ({{ data.expected.length }})</h3>
-            <button 
-              mat-stroked-button 
+            <h3 class="font-semibold text-blue-900">
+              Expected Headers ({{ data.expected.length }})
+            </h3>
+            <button
+              mat-stroked-button
               (click)="copyToClipboard(data.expected.join(','))"
               class="text-xs h-7"
             >
@@ -69,10 +85,14 @@
               Copy All
             </button>
           </div>
-          <p class="text-sm text-blue-800 mb-3">Your CSV file must include these headers in this order:</p>
+          <p class="text-sm text-blue-800 mb-3">
+            Your CSV file must include these headers in this order:
+          </p>
           <div class="space-y-1 max-h-64 overflow-y-auto">
-            <div *ngFor="let header of data.expected; let i = index" 
-                 class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-blue-200">
+            <div
+              *ngFor="let header of data.expected; let i = index"
+              class="flex items-center gap-2 text-sm font-mono bg-white px-3 py-2 rounded border border-blue-200"
+            >
               <span class="text-xs text-blue-600 font-bold min-w-[2rem]">{{ i + 1 }}.</span>
               <span class="text-blue-900">{{ header }}</span>
             </div>
@@ -84,8 +104,6 @@
 
   <!-- Actions -->
   <div class="mt-6 flex justify-end gap-3">
-    <button mat-raised-button color="primary" (click)="close()">
-      Got It
-    </button>
+    <button mat-raised-button color="primary" (click)="close()">Got It</button>
   </div>
 </div>

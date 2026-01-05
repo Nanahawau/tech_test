@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule],
   templateUrl: './stat-card.component.html',
-  styleUrls: ['./stat-card.component.css']
+  styleUrls: ['./stat-card.component.css'],
 })
 export class StatCardComponent {
   @Input() label = '';
