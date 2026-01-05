@@ -45,6 +45,7 @@ Make sure Docker Desktop is running (check for the Docker icon in your menu bar/
 git clone https://github.com/Nanahawau/tech_test
 
 cd tech_test/backend 
+Create .env file using .env.sample as a sample file. Keep test@gmail.com as default auth email and test as default auth password 
 ```
 
 ### **Step 3: Build and Start the Application**
