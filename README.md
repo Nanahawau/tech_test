@@ -132,6 +132,9 @@ Component tests were written on the frontend and controller tests were written f
 cd frontend
 
 # Install dependencies (first time only)
+npm install 
+
+# Run resr
 npm test
 ```
 
@@ -141,7 +144,19 @@ npm test
 # Navigate to backend folder
 cd backend
 
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
 # Install dependencies (first time only)
+pip install -r requirements.txt
+
+# Run Tests
 pytest
 ```
 
